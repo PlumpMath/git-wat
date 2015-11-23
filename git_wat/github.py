@@ -11,6 +11,7 @@ import re
 
 DEFAULT_API_ENDPOINT = 'https://api.github.com'
 
+
 class Client(object):
 
     def __init__(self, username, token=None, endpoint=DEFAULT_API_ENDPOINT):
@@ -18,6 +19,7 @@ class Client(object):
         self.username = username
         self.default_headers = {
             'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'git-wat (user %s)' % username,
         }
         if token is not None:
             self._set_token(token)
@@ -34,7 +36,7 @@ class Client(object):
                 'name': name,
             })
         )
-        response.text
+        print(response.text)
 
     def get_token(self, password):
         response = requests.post(
@@ -72,8 +74,10 @@ class Client(object):
     @staticmethod
     def from_config(accountname):
         token = git(['config', '--global', 'wat.account.%s.token' %
-                     accountname])
-        return Client(token)
+                     accountname]).strip()
+        username = git(['config', '--global', 'wat.account.%s.username' %
+                        accountname]).strip()
+        return Client(username, token)
 
 
 def prompt():

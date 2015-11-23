@@ -3,8 +3,8 @@ import json
 import readline
 import sys
 from getpass import getpass
-from git_mirrortool import errors
-from git_mirrortool.git import git
+from . import errors
+from .git import git
 import schema as s
 import re
 
@@ -43,7 +43,7 @@ class Client(object):
             headers=self.default_headers,
             data=json.dumps({
                 'scopes': ['repo'],
-                'note': 'git-mirrortool',
+                'note': 'git-wat',
             })
         )
         if response.status_code < 200 or response.status_code >= 300:
@@ -64,14 +64,14 @@ class Client(object):
             raise errors.UnexpectedResponse(response, str(e))
 
     def save_token(self, accountname):
-        account = 'mirrortool.account.%s' % accountname
+        account = 'wat.account.%s' % accountname
         git(['config', '--global', '%s.type' % account,  'github'])
         git(['config', '--global', '%s.username' % account, self.username])
         git(['config', '--global', '%s.token' % account, self.token])
 
     @staticmethod
     def from_config(accountname):
-        token = git(['config', '--global', 'mirrortool.account.%s.token' %
+        token = git(['config', '--global', 'wat.account.%s.token' %
                      accountname])
         return Client(token)
 
@@ -97,4 +97,4 @@ def prompt():
     else:
         enable = False
     if enable:
-        git(['config', '--global', '--add', 'mirrortool.account', accountname])
+        git(['config', '--global', '--add', 'wat.account', accountname])

@@ -12,6 +12,9 @@ def _get_readme():
 setup(name='git-wat',
       version='0.1',
       packages=find_packages(),
+      scripts=[
+          'bin/git-wat',
+      ],
       install_requires=[
           'requests',
           'schema',

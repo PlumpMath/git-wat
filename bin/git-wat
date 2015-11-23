@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 
-from git_wat.github import prompt
-prompt()
+from git_wat.cli import main
+main()

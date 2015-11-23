@@ -74,9 +74,9 @@ class Client(object):
     @staticmethod
     def from_config(accountname):
         token = git(['config', '--global', 'wat.account.%s.token' %
-                     accountname]).strip()
+                     accountname])
         username = git(['config', '--global', 'wat.account.%s.username' %
-                        accountname]).strip()
+                        accountname])
         return Client(username, token)
 
 

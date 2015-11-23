@@ -6,7 +6,7 @@ from os.path import basename, realpath
 
 
 def init(args):
-    accountname = git(['config', 'wat.account']).strip()
+    accountname = git(['config', 'wat.account'])
     client = github.Client.from_config(accountname)
     client.create_repo(basename(realpath('.')))
 
